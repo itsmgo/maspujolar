@@ -6,18 +6,12 @@ import { routes } from "./../router";
 const router = useRouter();
 const route = useRoute();
 
-const props = defineProps(["scrollValue"]);
-
-const emits = defineEmits(["scroll-top", "scroll-menu"]);
+const emits = defineEmits(["scroll-menu"]);
 
 const methods = {
   changeTab: (name) => {
     router.push({ name: name });
     emits("scroll-menu");
-  },
-  goToHome: () => {
-    router.push("/");
-    emits("scroll-top");
   },
 };
 
@@ -28,20 +22,6 @@ const compute = reactive({
 
   getClass: (name) => {
     return { active: compute.isActive(name) };
-  },
-  getOpacityStyle: () => {
-    const maxScroll = 427;
-    const minScroll = 300;
-    const opacity =
-      (Math.min(Math.max(minScroll, props.scrollValue), maxScroll) -
-        minScroll) /
-      (maxScroll - minScroll);
-    if (opacity == 0) {
-      return { display: "none" };
-    }
-    return {
-      opacity: opacity,
-    };
   },
 });
 </script>
@@ -58,19 +38,11 @@ const compute = reactive({
         {{ button.text }}
       </button>
     </div>
-    <h1
-      class="logo"
-      :style="compute.getOpacityStyle()"
-      @click="methods.goToHome()"
-    >
-      Mas Pujolar
-    </h1>
   </div>
 </template>
 
 <style scoped>
 .container {
-  position: relative;
   position: sticky;
   top: 0;
   z-index: 2;
@@ -104,16 +76,5 @@ button:hover {
 .active {
   font-weight: 500;
   text-decoration: underline;
-}
-
-.logo {
-  color: var(--color-text);
-  position: absolute;
-  top: 35px;
-  left: -360px;
-  text-transform: uppercase;
-  cursor: pointer;
-  opacity: 0;
-  font-weight: 700;
 }
 </style>
