@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&display=swap');
 
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
@@ -64,5 +65,6 @@ body {
 }
 
 h1, h2, h3 {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
 }

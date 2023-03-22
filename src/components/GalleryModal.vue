@@ -1,7 +1,18 @@
 <script setup>
+import { reactive } from "vue";
 import { VueFinalModal } from "vue-final-modal";
 
-const props = defineProps(["source"]);
+const props = defineProps(["images", "selected"]);
+
+const data = reactive({
+  currentIndex: props.selected,
+});
+
+const methods = {
+  changeImage: (direction) => {
+    data.currentIndex = (data.currentIndex + direction) % props.images.length;
+  },
+};
 </script>
 
 <template>
@@ -10,8 +21,23 @@ const props = defineProps(["source"]);
     content-class="modal-content"
     overlay-transition="vfm-fade"
     content-transition="vfm-fade"
+    @before-open="data.currentIndex = props.selected"
   >
-    <div class="modal-image">{{ props.source }}</div>
+    <button
+      class="modal-button"
+      style="left: -70px"
+      @click="methods.changeImage(-1)"
+    >
+      {{ "<" }}
+    </button>
+    <div class="modal-image">{{ props.images.at(data.currentIndex) }}</div>
+    <button
+      class="modal-button"
+      style="right: -70px"
+      @click="methods.changeImage(1)"
+    >
+      {{ ">" }}
+    </button>
     <slot />
   </VueFinalModal>
 </template>
@@ -24,7 +50,7 @@ const props = defineProps(["source"]);
 }
 .modal-content {
   display: flex;
-  flex-direction: column;
+  position: relative;
   padding: 1rem;
   background: #fff;
   border-radius: 1rem;
@@ -50,5 +76,27 @@ const props = defineProps(["source"]);
   height: 40rem;
   border-radius: 0.3rem;
   background-color: lightgray;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-button {
+  position: absolute;
+  top: 45%;
+  border: none !important;
+  background-color: var(--color-background);
+  font-size: 1.2rem;
+  font-family: "Montserrat";
+  cursor: pointer;
+  padding: 1rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 2rem !important;
+}
+
+.modal-button:hover {
+  font-weight: 600;
 }
 </style>

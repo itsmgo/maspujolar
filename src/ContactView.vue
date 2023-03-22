@@ -34,6 +34,7 @@
         <div class="inputbox" style="height: 15rem" />
       </div>
     </div>
+    <button>Enviar</button>
   </div>
 </template>
 
@@ -61,5 +62,22 @@
   height: 2.5rem;
   background-color: lightgray;
   border-radius: 0.3rem;
+}
+
+button {
+  border: 1px solid lightgray;
+  background-color: transparent;
+  font-size: 1rem;
+  font-family: "Montserrat";
+  cursor: pointer;
+  padding: 1rem;
+  width: 10rem;
+  border-radius: 0.3rem;
+  align-self: self-end;
+}
+
+button:hover {
+  font-weight: 600;
+  border: 1px solid gray;
 }
 </style>

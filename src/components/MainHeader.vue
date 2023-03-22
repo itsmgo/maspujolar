@@ -35,8 +35,8 @@
 
 .name {
   margin-bottom: 1rem;
-  font-weight: 400;
-  font-size: 3rem;
+  font-weight: 700;
+  font-size: 3.2rem;
   text-transform: uppercase;
   word-spacing: 0.7rem;
 }

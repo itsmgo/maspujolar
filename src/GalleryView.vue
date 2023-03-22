@@ -18,12 +18,14 @@ const sections = [
 ];
 const show = ref(false);
 const data = reactive({
-  selected: "asdf",
+  selectedIndex: 0,
+  section: "",
 });
 
 const methods = {
-  enlargeImage: (image) => {
-    data.selected = image;
+  enlargeImage: (section, image) => {
+    data.section = section;
+    data.selectedIndex = data.section.images.indexOf(image);
     show.value = true;
   },
 };
@@ -38,12 +40,16 @@ const methods = {
           v-for="image in section.images"
           :key="image"
           class="image"
-          @click="methods.enlargeImage(image)"
+          @click="methods.enlargeImage(section, image)"
         />
       </div>
     </div>
   </div>
-  <GalleryModal v-model="show" :source="data.selected" />
+  <GalleryModal
+    v-model="show"
+    :images="data.section.images"
+    :selected="data.selectedIndex"
+  />
 </template>
 
 <style scoped>

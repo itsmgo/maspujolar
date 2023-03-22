@@ -36,6 +36,9 @@ const routes = [
   },
 ];
 
-const router = createRouter({ history: createWebHistory(), routes: routes });
+const router = createRouter({
+  history: createWebHistory("/maspujolar/"),
+  routes: routes,
+});
 
 export { router, routes };

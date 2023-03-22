@@ -1,10 +1,12 @@
 <script setup>
-import { reactive, onMounted } from "vue";
+import { reactive } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { routes } from "./../router";
 
 const router = useRouter();
 const route = useRoute();
+
+const props = defineProps(["scrollValue"]);
 
 const emits = defineEmits(["scroll-top", "scroll-menu"]);
 
@@ -13,18 +15,11 @@ const methods = {
     router.push({ name: name });
     emits("scroll-menu");
   },
-  onScroll: () => {
-    data.scroll = window.scrollY;
-  },
   goToHome: () => {
     router.push("/");
     emits("scroll-top");
   },
 };
-
-const data = reactive({
-  scroll: Number,
-});
 
 const compute = reactive({
   isActive: (name) => {
@@ -38,7 +33,8 @@ const compute = reactive({
     const maxScroll = 427;
     const minScroll = 300;
     const opacity =
-      (Math.min(Math.max(minScroll, data.scroll), maxScroll) - minScroll) /
+      (Math.min(Math.max(minScroll, props.scrollValue), maxScroll) -
+        minScroll) /
       (maxScroll - minScroll);
     if (opacity == 0) {
       return { display: "none" };
@@ -47,10 +43,6 @@ const compute = reactive({
       opacity: opacity,
     };
   },
-});
-
-onMounted(() => {
-  window.addEventListener("scroll", methods.onScroll);
 });
 </script>
 
@@ -118,9 +110,10 @@ button:hover {
   color: var(--color-text);
   position: absolute;
   top: 35px;
-  left: -350px;
+  left: -360px;
   text-transform: uppercase;
   cursor: pointer;
   opacity: 0;
+  font-weight: 700;
 }
 </style>
